@@ -98,7 +98,7 @@ export default function HomePage(props: Props) {
     </Layout>
   );
 }
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const users = await UserAPI.getUsersByName('', false);
   return {
     props: {

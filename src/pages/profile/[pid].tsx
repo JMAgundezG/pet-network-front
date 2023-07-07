@@ -190,23 +190,23 @@ const ProfilePage: NextPage<Props> = (props) => {
   );
 };
 
-export async function getStaticPaths() {
-  const ids = await (await UserAPI.getAllUserIds()).data;
-  const paths = ids.map((id: string) => {
-    return {
-      params: {
-        pid: id,
-      },
-    };
-  });
+// export async function getStaticPaths() {
+//   const ids = await (await UserAPI.getAllUserIds()).data;
+//   const paths = ids.map((id: string) => {
+//     return {
+//       params: {
+//         pid: id,
+//       },
+//     };
+//   });
 
-  return {
-    paths: paths,
-    fallback: false,
-  };
-}
+//   return {
+//     paths: paths,
+//     fallback: false,
+//   };
+// }
 
-export async function getStaticProps({
+export async function getServerSideProps({
   params: { pid },
 }: {
   params: { pid: string };
