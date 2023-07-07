@@ -15,7 +15,7 @@ COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 #   else echo "Lockfile not found." && exit 1; \
 #   fi
 
-run npm ci
+RUN npm ci
 
 
 # Rebuild the source code only when needed
