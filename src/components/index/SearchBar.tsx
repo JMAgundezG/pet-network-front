@@ -35,7 +35,7 @@ export default function SearchBar({ textByDefault, onChange }: Props) {
         <input
           type='text'
           className='w-full rounded border-0 py-[9px] pl-[10px] ring-0 focus:outline-none focus:ring-0'
-          placeholder='Buscar por nombre'
+          placeholder='Search by name'
           value={text}
           onChange={(e) => handleChange(e.target.value)}
         />
