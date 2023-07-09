@@ -12,7 +12,6 @@ interface Props {
 export default function FriendList({ friends }: Props) {
   const router = useRouter();
   const handleClick = (id: number) => {
-    console.log(id, 'id');
     router.push(`/profile/${id}`);
   };
   return (

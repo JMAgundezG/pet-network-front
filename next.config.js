@@ -3,7 +3,6 @@ const nextConfig = {
   eslint: {
     dirs: ['src'],
   },
-  distDir: 'build',
   output: 'standalone',
   reactStrictMode: true,
   swcMinify: true,

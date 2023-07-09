@@ -220,7 +220,6 @@ export async function getServerSideProps({
   // const pets = (await PetAPI.getPets(parseInt(pid))).data;
 
   const comments = (await CommentsAPI.getComments(parseInt(pid))).data;
-  console.log('props', user, friends, comments);
   return {
     props: {
       user: user as UserData,
