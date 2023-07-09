@@ -13,9 +13,9 @@ import EmptyContent from '@/components/common/layout/EmptyContent';
 import Header from '@/components/common/layout/Header';
 import Layout from '@/components/common/layout/Layout';
 import CommentList from '@/components/profile/CommentList';
-import FriendList from '@/components/profile/layout/FriendList';
-import PetList from '@/components/profile/layout/PetList';
-import ProfileHeader from '@/components/profile/layout/ProfileHeader';
+import FriendList from '@/components/profile/FriendList';
+import PetList from '@/components/profile/PetList';
+import ProfileHeader from '@/components/profile/ProfileHeader';
 
 interface Props {
   user: UserData;
