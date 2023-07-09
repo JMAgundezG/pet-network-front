@@ -26,6 +26,9 @@ export default function HomePage(props: Props) {
       UserAPI.getUsersByName(text, orderByName).then((result) => {
         setIsLoading(false);
         setUsers(result.data);
+      }).catch(() => {
+        setIsLoading(false);
+        setUsers([]);
       });
     },
     []
