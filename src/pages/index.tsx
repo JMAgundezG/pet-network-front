@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { UserAPI } from '@/lib/api/user';
 import { ListedUser } from '@/lib/models/ListedUser';
+import { UserData } from '@/lib/models/UserData';
 
 import SearchBar from '@/components/index/SearchBar';
 import UserList from '@/components/index/UserList';
@@ -73,7 +74,7 @@ export default function HomePage(props: Props) {
                 handleOrderByName();
               }}
             >
-              Ordenar por nombre
+              Order by name
             </p>
           </div>
         </div>
@@ -99,10 +100,11 @@ export default function HomePage(props: Props) {
   );
 }
 export async function getServerSideProps() {
-  const users = await UserAPI.getUsersByName('', false);
+  let users: UserData[] = []
+  await UserAPI.getUsersByName('', false).then((response) => users = response.data).catch(() => users = []);
   return {
     props: {
-      users: users.data,
+      users: users,
     },
   };
 }
