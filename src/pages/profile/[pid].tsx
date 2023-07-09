@@ -9,13 +9,13 @@ import { ListedUser } from '@/lib/models/ListedUser';
 import { Pet } from '@/lib/models/Pet';
 import { UserData } from '@/lib/models/UserData';
 
-import CommentList from '@/components/layout/CommentList';
-import EmptyContent from '@/components/layout/EmptyContent';
-import FriendList from '@/components/layout/FriendList';
-import Header from '@/components/layout/Header';
-import Layout from '@/components/layout/Layout';
-import PetList from '@/components/layout/PetList';
-import ProfileHeader from '@/components/layout/ProfileHeader';
+import EmptyContent from '@/components/common/layout/EmptyContent';
+import Header from '@/components/common/layout/Header';
+import Layout from '@/components/common/layout/Layout';
+import CommentList from '@/components/profile/CommentList';
+import FriendList from '@/components/profile/layout/FriendList';
+import PetList from '@/components/profile/layout/PetList';
+import ProfileHeader from '@/components/profile/layout/ProfileHeader';
 
 interface Props {
   user: UserData;

@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { ListedUser } from '@/lib/models/ListedUser';
 
-import ImageBadge from '@/components/layout/ImageBadge';
+import ImageBadge from '@/components/common/layout/ImageBadge';
 
 interface Props {
   friends: ListedUser[];

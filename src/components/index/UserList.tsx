@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import { ListedUser } from '@/lib/models/ListedUser';
 
-import ImageBadge from '@/components/layout/ImageBadge';
+import ImageBadge from '@/components/common/layout/ImageBadge';
 
 import Delete from '~/svg/Delete.svg';
 

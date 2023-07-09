@@ -4,11 +4,11 @@ import { UserAPI } from '@/lib/api/user';
 import { ListedUser } from '@/lib/models/ListedUser';
 import { UserData } from '@/lib/models/UserData';
 
+import EmptyContent from '@/components/common/layout/EmptyContent';
+import Header from '@/components/common/layout/Header';
+import Layout from '@/components/common/layout/Layout';
 import SearchBar from '@/components/index/SearchBar';
 import UserList from '@/components/index/UserList';
-import EmptyContent from '@/components/layout/EmptyContent';
-import Header from '@/components/layout/Header';
-import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
 interface Props {

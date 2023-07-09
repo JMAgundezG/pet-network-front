@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Comment } from '@/lib/models/Comment';
 
-import CommentItem from '@/components/layout/CommentItem';
+import CommentItem from '@/components/profile/layout/CommentItem';
 
 interface Props {
   comments: Comment[];

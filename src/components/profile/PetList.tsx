@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Pet } from '@/lib/models/Pet';
 
-import ImageBadge from '@/components/layout/ImageBadge';
+import ImageBadge from '@/components/common/layout/ImageBadge';
 
 interface Props {
   pets: Pet[];
