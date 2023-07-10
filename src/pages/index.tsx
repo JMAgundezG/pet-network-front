@@ -7,6 +7,7 @@ import { UserData } from '@/lib/models/UserData';
 import EmptyContent from '@/components/common/layout/EmptyContent';
 import Header from '@/components/common/layout/Header';
 import Layout from '@/components/common/layout/Layout';
+import Loading from '@/components/common/layout/Loading';
 import SearchBar from '@/components/index/SearchBar';
 import UserList from '@/components/index/UserList';
 import Seo from '@/components/Seo';
@@ -16,6 +17,7 @@ interface Props {
 }
 
 export default function HomePage(props: Props) {
+  
   const [search, setSearch] = React.useState('');
   const [orderByName, setOrderByName] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -68,8 +70,8 @@ export default function HomePage(props: Props) {
             <SearchBar onChange={handleSearch} textByDefault={search} />
           </div>
           <div
-            className={`flex items-center ${
-              orderByName ? 'text-orange-500' : ''
+            className={`flex items-center py-[12px] px-[16px] rounded-full ${
+              orderByName ? 'text-orange-500 bg-[#FDF9F7]' : ''
             }`}
           >
             <p
@@ -83,7 +85,7 @@ export default function HomePage(props: Props) {
         </div>
 
         {isLoading ? (
-          <h1>LOADING</h1>
+          <Loading />
         ) : (
           <div className='px-[24px]'>
             {users.length ? (
