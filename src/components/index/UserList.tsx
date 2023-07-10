@@ -23,7 +23,7 @@ export default function UserList({ users, onDelete }: Props) {
       <div className='grid-rows grid w-full'>
         {users.map((user, index) => (
           <div
-            className='flex-rows flex justify-between px-[0px] py-[16px]'
+            className={`flex-rows flex justify-between px-[0px] py-[16px] ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
             key={'user-' + index}
           >
             <ImageBadge
