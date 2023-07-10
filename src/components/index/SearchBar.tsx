@@ -14,7 +14,7 @@ export default function SearchBar({ textByDefault, onChange }: Props) {
   };
 
   return (
-    <div className='rounded-lg border-[1px] border-solid border-[#D7D7D7]'>
+    <div className='rounded-lg border-[1px] border-solid border-[#D7D7D7] shadow-md'>
       <div className='flex rounded-lg px-[10px]'>
         <div className='flex items-center justify-center'>
           <svg

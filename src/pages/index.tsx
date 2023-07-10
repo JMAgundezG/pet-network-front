@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { UserAPI } from '@/lib/api/user';
+import { getFromLocalStorage, setInLocalStorage } from '@/lib/helper';
 import { ListedUser } from '@/lib/models/ListedUser';
 import { UserData } from '@/lib/models/UserData';
 
@@ -18,10 +19,11 @@ interface Props {
 
 export default function HomePage(props: Props) {
   
-  const [search, setSearch] = React.useState('');
+  const [search, setSearch] = React.useState(getFromLocalStorage('previousSearch') || '');
   const [orderByName, setOrderByName] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [users, setUsers] = React.useState<ListedUser[]>(props.users);
+  
   const getNewUsers = React.useCallback(
     async (text: string, orderByName: boolean) => {
       setIsLoading(true);
@@ -40,6 +42,7 @@ export default function HomePage(props: Props) {
     async (text: string) => {
       getNewUsers(text, orderByName);
       setSearch(text);
+      setInLocalStorage('previousSearch', text);
     },
     [getNewUsers, orderByName]
   );
