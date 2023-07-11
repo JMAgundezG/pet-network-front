@@ -190,22 +190,6 @@ const ProfilePage: NextPage<Props> = (props) => {
   );
 };
 
-// export async function getStaticPaths() {
-//   const ids = await (await UserAPI.getAllUserIds()).data;
-//   const paths = ids.map((id: string) => {
-//     return {
-//       params: {
-//         pid: id,
-//       },
-//     };
-//   });
-
-//   return {
-//     paths: paths,
-//     fallback: false,
-//   };
-// }
-
 export async function getServerSideProps({
   params: { pid },
 }: {
@@ -217,14 +201,13 @@ export async function getServerSideProps({
   }
   const friends = (await FriendAPI.getFriends(parseInt(pid))).data;
 
-  // const pets = (await PetAPI.getPets(parseInt(pid))).data;
-
+  const pets = (await PetAPI.getPets(parseInt(pid))).data;
   const comments = (await CommentsAPI.getComments(parseInt(pid))).data;
   return {
     props: {
       user: user as UserData,
       friends: friends as ListedUser[],
-      // pets: pets as Pet[],
+      pets: pets as Pet[],
       comments: comments as Comment[],
     },
   };

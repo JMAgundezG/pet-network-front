@@ -3,7 +3,6 @@ import * as React from 'react';
 import { UserAPI } from '@/lib/api/user';
 import { getFromLocalStorage, setInLocalStorage } from '@/lib/helper';
 import { ListedUser } from '@/lib/models/ListedUser';
-import { UserData } from '@/lib/models/UserData';
 
 import EmptyContent from '@/components/common/layout/EmptyContent';
 import Header from '@/components/common/layout/Header';
@@ -15,25 +14,34 @@ import Seo from '@/components/Seo';
 
 interface Props {
   users: ListedUser[];
+  numberOfPages: number;
+  currentPage: number;
 }
 
 export default function HomePage(props: Props) {
-  
-  const [search, setSearch] = React.useState(getFromLocalStorage('previousSearch') || '');
+  const [search, setSearch] = React.useState(
+    getFromLocalStorage('previousSearch') || ''
+  );
   const [orderByName, setOrderByName] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [users, setUsers] = React.useState<ListedUser[]>(props.users);
-  
+  const [selectedPage, setSelectedPage] = React.useState(props.currentPage);
+  const [numberOfPages, setNumberOfPages] = React.useState(props.numberOfPages);
+
   const getNewUsers = React.useCallback(
-    async (text: string, orderByName: boolean) => {
+    async (text: string, orderByName: boolean, page?: number) => {
       setIsLoading(true);
-      UserAPI.getUsersByName(text, orderByName).then((result) => {
-        setIsLoading(false);
-        setUsers(result.data);
-      }).catch(() => {
-        setIsLoading(false);
-        setUsers([]);
-      });
+      UserAPI.getUsersByName(text, orderByName)
+        .then((result) => {
+          setIsLoading(false);
+          setUsers(result.data.users);
+          setSelectedPage(result.data.currentPage);
+          setNumberOfPages(result.data.numberOfPages);
+        })
+        .catch(() => {
+          setIsLoading(false);
+          setUsers([]);
+        });
     },
     []
   );
@@ -46,6 +54,10 @@ export default function HomePage(props: Props) {
     },
     [getNewUsers, orderByName]
   );
+
+  const handleSelectedPage = React.useCallback((page: number) => {
+    getNewUsers(search, orderByName, page);
+  }, []);
 
   const handleDelete = React.useCallback(
     (id: number): void => {
@@ -73,8 +85,8 @@ export default function HomePage(props: Props) {
             <SearchBar onChange={handleSearch} textByDefault={search} />
           </div>
           <div
-            className={`flex items-center py-[12px] px-[16px] rounded-full ${
-              orderByName ? 'text-orange-500 bg-[#FDF9F7]' : ''
+            className={`flex items-center rounded-full px-[16px] py-[12px] ${
+              orderByName ? 'bg-[#FDF9F7] text-orange-500' : ''
             }`}
           >
             <p
@@ -92,10 +104,15 @@ export default function HomePage(props: Props) {
         ) : (
           <div className='px-[24px]'>
             {users.length ? (
-              <UserList
-                onDelete={(id: number): void => handleDelete(id)}
-                users={users}
-              />
+              <div>
+                <UserList
+                  onDelete={(id: number): void => handleDelete(id)}
+                  users={users}
+                  handleSelectedPage={handleSelectedPage}
+                  numberOfPages={numberOfPages}
+                  selectedPage={selectedPage}
+                />
+              </div>
             ) : (
               <div className='pt-[165px] lg:pt-[262px]'>
                 <EmptyContent text='There is no users yet' />
@@ -108,11 +125,13 @@ export default function HomePage(props: Props) {
   );
 }
 export async function getServerSideProps() {
-  let users: UserData[] = []
-  await UserAPI.getUsersByName('', false).then((response) => users = response.data).catch(() => users = []);
+  let data: Props = { users: [], numberOfPages: 0, currentPage: 0 };
+
+  await UserAPI.getUsersByName('', false).then(
+    (response) => (data = response.data)
+  );
+  console.log(data);
   return {
-    props: {
-      users: users,
-    },
+    props: data,
   };
 }
