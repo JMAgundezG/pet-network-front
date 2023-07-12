@@ -11,7 +11,7 @@ export const UserAPI = {
     const order = orderByName ? 'name' : 'id';
     const pageQuery = page && page > 0 ? `&page=${page}` : '';
     return axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/users?q=${name}&orderBy=${order}{pageQuery}`
+      `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/users?q=${name}&orderBy=${order}${pageQuery}`
     );
   },
   deleteUser: (id: number) =>

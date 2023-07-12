@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import UnstyledLink from '@/components/links/UnstyledLink';
 
-// TODO change UnstyledLink content to Logo
 export default function Header() {
   return (
     <header className='sticky bg-white'>

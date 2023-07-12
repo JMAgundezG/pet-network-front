@@ -25,17 +25,28 @@ export default function HomePage(props: Props) {
   const [orderByName, setOrderByName] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [users, setUsers] = React.useState<ListedUser[]>(props.users);
-  const [selectedPage, setSelectedPage] = React.useState(props.currentPage);
+
+  const pageFromLocalStorage = getFromLocalStorage('lastSelectedPage');
+  const lastSelectedPage =
+    pageFromLocalStorage !== null ? parseInt(pageFromLocalStorage) : null;
+
+  const [selectedPage, setSelectedPage] = React.useState(
+    lastSelectedPage || props.currentPage
+  );
   const [numberOfPages, setNumberOfPages] = React.useState(props.numberOfPages);
 
   const getNewUsers = React.useCallback(
     async (text: string, orderByName: boolean, page?: number) => {
       setIsLoading(true);
-      UserAPI.getUsersByName(text, orderByName)
+      UserAPI.getUsersByName(text, orderByName, page)
         .then((result) => {
           setIsLoading(false);
           setUsers(result.data.users);
           setSelectedPage(result.data.currentPage);
+          setInLocalStorage(
+            'lastSelectedPage',
+            result.data.currentPage.toString()
+          );
           setNumberOfPages(result.data.numberOfPages);
         })
         .catch(() => {
@@ -56,6 +67,8 @@ export default function HomePage(props: Props) {
   );
 
   const handleSelectedPage = React.useCallback((page: number) => {
+    setSelectedPage(page);
+    setInLocalStorage('lastSelectedPage', page.toString());
     getNewUsers(search, orderByName, page);
   }, []);
 
@@ -125,12 +138,12 @@ export default function HomePage(props: Props) {
   );
 }
 export async function getServerSideProps() {
-  let data: Props = { users: [], numberOfPages: 0, currentPage: 0 };
+  let data: Props = { users: [], numberOfPages: 1, currentPage: 1 };
 
   await UserAPI.getUsersByName('', false).then(
     (response) => (data = response.data)
   );
-  console.log(data);
+
   return {
     props: data,
   };
